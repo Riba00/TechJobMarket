@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  node:
+    build:
+      context: ./node
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - "./node:/app"
+      - "/app/node_modules"
+    networks:
+      - techJobMarket-network
+
+networks:
+  techJobMarket-network:
+    driver: bridge

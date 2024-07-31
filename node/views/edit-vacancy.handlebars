@@ -1,0 +1,57 @@
+<main class="contenedor">
+    <form action="/vacancies/edit/{{vacancy.url}}" method="POST" class="default-form">
+        <h3>General Information</h3>
+
+        <div class="campo">
+            <label>Title</label>
+            <input type="text" value="{{vacancy.title}}" name="title" placeholder="Ex: React Developer" required>
+        </div>
+
+        <div class="campo">
+            <label>Company</label>
+            <input type="text" value="{{vacancy.company}}" name="company" placeholder="Ex: Company Name" required>
+        </div>
+
+        <div class="campo">
+            <label>Location</label>
+            <input type="text" value="{{vacancy.location}}" name="location" placeholder="Ex: Spain, Remote" required>
+        </div>
+
+        <div class="campo">
+            <label>Salary (EUR)</label>
+            <input type="text" value="{{vacancy.salary}}" name="salary" placeholder="Ex: 900 €" required>
+        </div>
+
+        <div class="campo">
+            <label>Contract</label>
+            <select name="contract">
+                {{#contractType vacancy.contract}}
+                <option value="">-- Select --</option>
+                <option value="Freelance">Freelance</option>
+                <option value="Full Time">Full Time</option>
+                <option value="Part Time">Part Time</option>
+                <option value="By Project">By Project</option>
+                {{/contractType}}
+            </select>
+        </div>
+
+        <h3>Job Description</h3>
+        <div class="campo descripcion">
+            <label>Description</label>
+            <input type="hidden" value="{{{vacancy.description}}}" name="description" id="x">
+            <trix-editor input="x"></trix-editor>
+        </div>
+
+        <h3>Skills</h3>
+
+        <ul class="lista-conocimientos">
+            {{#selectSkills vacancy.skills}}
+            {{/selectSkills}}
+        </ul>
+
+        <div class="campo centrar-horizontal">
+            <input type="hidden" name="skills" id="skills">
+            <input type="submit" value="Save" class="btn btn-azul">
+        </div>
+    </form>
+</main>
