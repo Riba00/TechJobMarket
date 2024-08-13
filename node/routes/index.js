@@ -3,6 +3,7 @@ const router = express.Router();
 const homeController = require('../controllers/homeController')
 const usersController = require('../controllers/usersController')
 const vacanciesController = require('../controllers/vacanciesController')
+const authController = require('../controllers/authController')
 
 module.exports = () => {
     router.get('/', homeController.showJobs)
@@ -18,6 +19,9 @@ module.exports = () => {
 
     router.get('/signUp', usersController.signUpForm)
     router.post('/signUp', usersController.validateRegister, usersController.signUp)
+
+    router.get('/signIn', usersController.signInForm)
+    router.post('/signIn', authController.authenticateUser)
 
     return router
 }

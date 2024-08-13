@@ -36,7 +36,6 @@ exports.validateRegister = (req, res, next) => {
     req.checkBody('password-confirm', 'Confirm Password is required').notEmpty();
     req.checkBody('password-confirm', 'Passwords do not match').equals(req.body.password);
 
-
     const errors = req.validationErrors();
 
     if (errors) {
@@ -52,3 +51,10 @@ exports.validateRegister = (req, res, next) => {
 
     next();
 }
+
+exports.signInForm = (req, res) => {
+    res.render('sign-in', {
+        pageName: 'SignIn to TechJobMarket'
+    })
+}
+
