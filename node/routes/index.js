@@ -8,13 +8,13 @@ const authController = require('../controllers/authController')
 module.exports = () => {
     router.get('/', homeController.showJobs)
 
-    router.get('/vacancies/new', vacanciesController.newVacancyForm)
-    router.post('/vacancies/new', vacanciesController.storeVacancy)
+    router.get('/vacancies/new', authController.verifyUser, vacanciesController.newVacancyForm)
+    router.post('/vacancies/new', authController.verifyUser, vacanciesController.storeVacancy)
 
     router.get('/vacancies/:url', vacanciesController.showVacancy)
 
-    router.get('/vacancies/edit/:url', vacanciesController.editVacancy)
-    router.post('/vacancies/edit/:url', vacanciesController.updateVacancy)
+    router.get('/vacancies/edit/:url', authController.verifyUser, vacanciesController.editVacancy)
+    router.post('/vacancies/edit/:url', authController.verifyUser, vacanciesController.updateVacancy)
 
 
     router.get('/signUp', usersController.signUpForm)
@@ -22,6 +22,9 @@ module.exports = () => {
 
     router.get('/signIn', usersController.signInForm)
     router.post('/signIn', authController.authenticateUser)
+
+    router.get('/administration', authController.verifyUser, authController.showPanel)
+
 
     return router
 }

@@ -12,6 +12,8 @@ exports.newVacancyForm = (req, res) => {
 exports.storeVacancy = async (req, res) => {
     const vacancy = new Vacancy(req.body)
 
+    vacancy.author = req.user._id
+
     vacancy.skills = req.body.skills.split(',')
 
     const newVacancy = await vacancy.save()

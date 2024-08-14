@@ -41,7 +41,12 @@ const VacanciesSchema = new mongoose.Schema({
         name: String,
         email: String,
         cv: String
-    }]
+    }],
+    author: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Users',
+        required: 'Author is required'
+    }
 })
 
 VacanciesSchema.pre('save', function(next) {
