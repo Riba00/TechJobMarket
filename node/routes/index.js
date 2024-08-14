@@ -9,7 +9,7 @@ module.exports = () => {
     router.get('/', homeController.showJobs)
 
     router.get('/vacancies/new', authController.verifyUser, vacanciesController.newVacancyForm)
-    router.post('/vacancies/new', authController.verifyUser, vacanciesController.storeVacancy)
+    router.post('/vacancies/new', authController.verifyUser, vacanciesController.validateVacancy, vacanciesController.storeVacancy)
 
     router.get('/vacancies/:url', vacanciesController.showVacancy)
 
