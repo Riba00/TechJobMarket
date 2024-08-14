@@ -22,6 +22,16 @@
                 </form>
             </div>
         {{/if}}
+
+        {{#if logOut}}
+        <div class="cerrar-sesion">
+            <p>Hello! {{name}}</p>
+            <a href="/administration">Administration</a>
+            <a href="/logOut">Log Out</a>
+        </div>
+
+
+        {{/if}}
     </div>
 
     <header class="site-header contenedor separador">

@@ -58,3 +58,31 @@ exports.signInForm = (req, res) => {
     })
 }
 
+exports.editProfileForm = (req, res) => {
+
+    res.render('edit-profile', {
+        pageName: 'Edit you profile in TechJobMarket',
+        user: req.user.toObject(),
+        logOut: true,
+        name: req.user.name
+    })
+}
+
+exports.editProfile = async (req, res) => {
+    const user = await Users.findById(req.user._id)
+
+    user.name = req.body.name
+    user.email = req.body.email
+    if (req.body.password) {
+        user.password = req.body.password
+    }
+
+    await user.save()
+
+    req.flash('correcto', 'User saved successfully')
+
+    res.redirect('/administration')
+
+
+
+}

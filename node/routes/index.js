@@ -23,7 +23,12 @@ module.exports = () => {
     router.get('/signIn', usersController.signInForm)
     router.post('/signIn', authController.authenticateUser)
 
+    router.get('/logOut', authController.verifyUser, authController.logOut)
+
     router.get('/administration', authController.verifyUser, authController.showPanel)
+
+    router.get('/edit-profile', authController.verifyUser, usersController.editProfileForm)
+    router.post('/edit-profile', authController.verifyUser, usersController.editProfile)
 
 
     return router
