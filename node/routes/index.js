@@ -61,10 +61,20 @@ module.exports = () => {
   router.post(
     "/edit-profile",
     authController.verifyUser,
-    // usersController.validateProfile,
+    usersController.validateProfile,
     usersController.uploadPhoto,
     usersController.editProfile
   );
+
+  router.post('/vacancies/:url',
+    vacanciesController.uploadCV,
+    vacanciesController.contact
+  )
+
+  router.get('/candidates/:id', 
+    authController.verifyUser,
+    vacanciesController.showCandidates
+  )
 
   return router;
 };

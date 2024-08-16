@@ -30,7 +30,7 @@
         <h2>Required Skills</h2>
         <ul class="skills">
             {{#each vacancy.skills}}
-                <li>{{this}}</li>
+            <li>{{this}}</li>
             {{/each}}
         </ul>
     </aside>
@@ -38,7 +38,26 @@
 
 <div class="contenedor datos-reclutador">
     <div class="enviar-datos">
+        <h2>Contact Recruiter</h2>
+        <p>Fill out the following form, upload your resume and we will contact you soon</p>
 
+        <form action="/vacancies/{{vacancy.url}}" method="POST" enctype="multipart/form-data" class="default-form">
+            <div class="campo">
+                <label>Name</label>
+                <input type="text" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="campo">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="campo">
+                <label>CV (PDF)</label>
+                <input type="file" name="cv" required>
+            </div>
+            <div class="campo">
+                <input type="submit" value="Send" class="btn btn-verde">
+            </div>
+        </form>
     </div>
 
     <div class="info-reclutador">
