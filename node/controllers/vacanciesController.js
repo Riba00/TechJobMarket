@@ -66,6 +66,29 @@ exports.updateVacancy = async (req, res, next) => {
   res.redirect(`/vacancies/${vacancy.url}`);
 };
 
+exports.deleteVacancy = async (req, res) => {
+  const { id } = req.params;
+
+  const vacancy = await Vacancy.findById(id)
+  
+  if (verifyAuthor(vacancy, req.user)) {
+    
+    await vacancy.deleteOne();
+    res.status(200).send('Vacancy has been deleted successfully!')
+  } else {
+    res.status(403).send('Forbidden')
+  }
+
+  
+}
+
+const verifyAuthor = (vacancy = {}, user = {}) => {
+  if (!vacancy.author.equals(user._id)) {
+    return false
+  }
+  return true
+}
+
 exports.validateVacancy = (req, res, next) => {
   req.sanitizeBody("title").escape();
   req.sanitizeBody("company").escape();

@@ -54,7 +54,7 @@ exports.validateRegister = (req, res, next) => {
 
 exports.signInForm = (req, res) => {
     res.render('sign-in', {
-        pageName: 'SignIn to TechJobMarket'
+        pageName: 'Sign In to TechJobMarket'
     })
 }
 
@@ -82,7 +82,30 @@ exports.editProfile = async (req, res) => {
     req.flash('correcto', 'User saved successfully')
 
     res.redirect('/administration')
+}
 
+exports.validateProfile = (req, res, next) => {
+    req.sanitizeBody('name').escape();
+    req.sanitizeBody('email').escape();
+    if (req.body.password) {
+        req.sanitizeBody('password')
+    }
 
+    req.checkBody('name', 'Name is required').notEmpty();
+    req.checkBody('email', 'Email is required').notEmpty();
 
+    const errors = req.validationErrors();
+
+    if (errors) {
+        req.flash('error', errors.map(error =>error.msg))
+        res.render('edit-profile', {
+            pageName: 'Edit you profile in TechJobMarket',
+            user: req.user.toObject(),
+            logOut: true,
+            name: req.user.name,
+            messages: req.flash()
+        })
+    }
+
+    next()
 }

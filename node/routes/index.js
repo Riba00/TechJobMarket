@@ -16,6 +16,8 @@ module.exports = () => {
     router.get('/vacancies/edit/:url', authController.verifyUser, vacanciesController.editVacancy)
     router.post('/vacancies/edit/:url', authController.verifyUser, vacanciesController.updateVacancy)
 
+    router.delete('/vacancies/delete/:id', vacanciesController.deleteVacancy)
+
 
     router.get('/signUp', usersController.signUpForm)
     router.post('/signUp', usersController.validateRegister, usersController.signUp)
@@ -28,7 +30,7 @@ module.exports = () => {
     router.get('/administration', authController.verifyUser, authController.showPanel)
 
     router.get('/edit-profile', authController.verifyUser, usersController.editProfileForm)
-    router.post('/edit-profile', authController.verifyUser, usersController.editProfile)
+    router.post('/edit-profile', authController.verifyUser, usersController.validateProfile, usersController.editProfile)
 
 
     return router
