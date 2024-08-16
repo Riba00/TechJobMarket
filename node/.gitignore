@@ -1,3 +1,4 @@
 /node_modules
 /dist
 variables.env
+/public/uploads/profiles/*

@@ -26,7 +26,8 @@ exports.showPanel = async (req, res) => {
         tagLine: 'Create and manage your vacancies here',
         vacancies,
         logOut: true,
-        name: req.user.name
+        name: req.user.name,
+        photo : req.user.photo
     })
 }
 

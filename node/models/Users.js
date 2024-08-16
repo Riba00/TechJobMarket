@@ -20,7 +20,8 @@ const usersSchema = new mongoose.Schema({
         trim: true
     },
     token: String,
-    expires: Date
+    expires: Date,
+    photo: String
 })
 
 usersSchema.pre('save', async function(next) {

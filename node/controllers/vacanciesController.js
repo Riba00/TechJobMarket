@@ -7,6 +7,7 @@ exports.newVacancyForm = (req, res) => {
     tagLine: "Fill out the form and publish your vacancy",
     logOut: true,
     name: req.user.name,
+    photo: req.user.photo
   });
 };
 
@@ -23,7 +24,7 @@ exports.storeVacancy = async (req, res) => {
 };
 
 exports.showVacancy = async (req, res) => {
-  const vacancy = await Vacancy.findOne({ url: req.params.url }).lean();
+  const vacancy = await Vacancy.findOne({ url: req.params.url }).populate('author').lean();
 
   if (!vacancy) {
     return next();
@@ -46,6 +47,7 @@ exports.editVacancy = async (req, res, next) => {
     pageName: `Edit - ${vacancy.title}`,
     logOut: true,
     name: req.user.name,
+    photo: req.user.photo
   });
 };
 

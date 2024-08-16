@@ -26,6 +26,9 @@
         {{#if logOut}}
         <div class="cerrar-sesion">
             <p>Hello! {{name}}</p>
+            {{#if photo}}
+                <img src="/uploads/profiles/{{photo}}" alt="Profile Photo" class="admin-perfil">
+            {{/if}}
             <a href="/administration">Administration</a>
             <a href="/logOut">Log Out</a>
         </div>

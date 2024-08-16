@@ -1,5 +1,5 @@
 <main class="contenedor">
-    <form action="/edit-profile" method="POST" class="default-form">
+    <form action="/edit-profile" method="POST" class="default-form" enctype="multipart/form-data">
         <div class="campo">
             <label>Name</label>
             <input type="text" value={{user.name}} name="name" placeholder="Your Name">
@@ -11,6 +11,11 @@
         <div class="campo">
             <label>Password</label>
             <input type="password" name="password" placeholder="Your Password">
+        </div>
+        <div class="campo">
+            <label>Photo</label>
+            <input type="file" name="photo">
+            <img src="uploads/profiles/{{user.photo}}" alt="" class="admin-perfil">
         </div>
         <div class="campo">
             <input type="submit" class="btn btn-azul" value="Save Changes">

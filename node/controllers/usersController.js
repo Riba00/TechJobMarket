@@ -1,5 +1,54 @@
 const mongoose = require('mongoose')
 const Users = mongoose.model('Users')
+const multer = require('multer')
+const shortid = require('shortid')
+
+exports.uploadPhoto = (req, res, next) => {
+    upload(req, res, function(error) {
+        if (error) {
+            console.log(error);
+            if (error instanceof multer.MulterError) {
+                if (error.code === 'LIMIT_FILE_SIZE') {
+                    req.flash('error', 'File too large: Max 100Kb')
+                } else {
+                    req.flash('error', error.message)
+                }
+            } else {
+                req.flash('error', error.message)
+            }
+            res.redirect('/administration');
+            return
+        } else {
+            return next();
+        }
+    });
+    
+}
+
+const configurationMulter = {
+    limits : {
+        fileSize: 100000
+    },
+    storage: fileStorage = multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, __dirname+ '../../public/uploads/profiles')
+        },
+        filename: (req, file, cb) => {
+            const extension = file.mimetype.split('/')[1];
+            cb(null, `${shortid.generate()}.${extension}`)
+        }
+    }),
+    fileFilter(req, file, cb) {
+        if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg') {
+            cb(null, true)
+        } else {
+            cb(new Error('Invalid format'), false)
+        }
+    },
+    
+}
+
+const upload = multer(configurationMulter).single('photo');
 
 exports.signUpForm = (req, res, next) => {
     res.render('sign-up', {
@@ -64,7 +113,8 @@ exports.editProfileForm = (req, res) => {
         pageName: 'Edit you profile in TechJobMarket',
         user: req.user.toObject(),
         logOut: true,
-        name: req.user.name
+        name: req.user.name,
+        photo: req.user.photo
     })
 }
 
@@ -75,6 +125,10 @@ exports.editProfile = async (req, res) => {
     user.email = req.body.email
     if (req.body.password) {
         user.password = req.body.password
+    }
+
+    if (req.file) {
+        user.photo = req.file.filename
     }
 
     await user.save()
@@ -103,6 +157,7 @@ exports.validateProfile = (req, res, next) => {
             user: req.user.toObject(),
             logOut: true,
             name: req.user.name,
+            photo: req.user.photo,
             messages: req.flash()
         })
     }
