@@ -47,6 +47,12 @@ module.exports = () => {
 
   router.get("/logOut", authController.verifyUser, authController.logOut);
 
+  router.get('/forgotPassword', authController.forgotPasswordForm)
+  router.post('/forgotPassword', authController.sendToken)
+
+  router.get('/reset-password/:token', authController.resetPassword)
+  router.post('/reset-password/:token', authController.savePassword)
+
   router.get(
     "/administration",
     authController.verifyUser,
