@@ -80,4 +80,7 @@ app.use((error, req, res, next) => {
     res.render('error')
 })
 
-app.listen(process.env.PORT);
+const host = '0.0.0.0'
+app.listen(process.env.PORT, host, () => {
+    console.log('Server is running');
+});
