@@ -11,6 +11,7 @@ const MongoStore = require('connect-mongo')
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
 const flash = require('connect-flash')
+const createError = require('http-errors')
 const passport = require('./config/passport')
 
 require('dotenv').config({ path: 'variables.env'})
@@ -67,6 +68,16 @@ app.use((req, res, next) => {
 });
 
 
-app.use('/', router())
+app.use('/', router());
+
+app.use((req, res ,next) => {
+    next(createError(404, 'Not Found'))
+})
+
+app.use((error, req, res, next) => {
+    res.locals.message = error.message
+
+    res.render('error')
+})
 
 app.listen(process.env.PORT);

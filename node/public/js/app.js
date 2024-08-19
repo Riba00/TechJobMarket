@@ -68,7 +68,6 @@ const cleanAlerts = () => {
 
 const listActions = (e) => {
   e.preventDefault();
-  console.log(e.target);
 
   if (e.target.dataset.delete) {
     Swal.fire({

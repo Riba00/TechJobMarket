@@ -107,8 +107,6 @@ exports.savePassword = async(req, res, next) => {
         req.flash('error', 'The form is no longer valid, try again');
         return res.redirect('/forgotPassword')
     }
-    console.log(user);
-    console.log(req.body.password);
 
     user.password = req.body.password;
     user.token = undefined;

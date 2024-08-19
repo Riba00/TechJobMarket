@@ -26,7 +26,7 @@ exports.storeVacancy = async (req, res) => {
   res.redirect(`/vacancies/${newVacancy.url}`);
 };
 
-exports.showVacancy = async (req, res) => {
+exports.showVacancy = async (req, res, next) => {
   const vacancy = await Vacancy.findOne({ url: req.params.url })
     .populate("author")
     .lean();
@@ -217,5 +217,4 @@ exports.showCandidates = async (req, res, next) => {
     candidates: vacancy.candidates
   })
 
-  console.log();
 }
