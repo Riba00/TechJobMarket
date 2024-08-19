@@ -56,4 +56,6 @@ VacanciesSchema.pre('save', function(next) {
     next();
 })
 
+VacanciesSchema.index({title: 'text'})
+
 module.exports = mongoose.model('Vacancy', VacanciesSchema)
